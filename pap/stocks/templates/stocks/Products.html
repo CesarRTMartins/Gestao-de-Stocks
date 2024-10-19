@@ -1,0 +1,25 @@
+<!-- stocks/templates/stocks/Products.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products/Stocks</title>
+</head>
+<body>
+    <h1>Products and their Stocks</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <strong>{{ product.name }} (Price: {{ product.price }})</strong>
+                <ul>
+                    {% for stock in product.stocks.all %}  <!-- Acessando os estoques -->
+                        <li>Quantity: {{ stock.quantity }} - Entry Date: {{ stock.entry_date }}</li>
+                    {% empty %}
+                        <li>Empty Stock</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
