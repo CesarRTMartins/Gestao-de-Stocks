@@ -43,7 +43,7 @@ class User(models.Model):
 
 class StockProduct(models.Model):
     # Chave estrangeira para o modelo Products
-    products = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks') 
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks') # Products id
     
     # Atributos da tabela
     quantity = models.IntegerField()  # Quantidade em stock
