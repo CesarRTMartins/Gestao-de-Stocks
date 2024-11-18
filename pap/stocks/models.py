@@ -43,9 +43,9 @@ class User(models.Model):
 
 class StockProduct(models.Model):
     # Chave estrangeira para o modelo Products
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks')
+    products = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks') 
     
-    # Atributos específicos do stock
+    # Atributos da tabela
     quantity = models.IntegerField()  # Quantidade em stock
     entry_date = models.DateTimeField(auto_now_add=True)  # Data de entrada em stock
     update_date = models.DateTimeField(auto_now=True)  # Data da última atualização do stock
@@ -55,3 +55,28 @@ class StockProduct(models.Model):
 
     def __str__(self):
         return f"Stock for {self.product.name} - Quantity: {self.quantity}" 
+
+class Modules(models.Model):
+    # Atributos da tabela
+    idModule = models.IntegerField()  # Id do Module
+    codModule = models.CharField(max_length=50)  # Codigo do Module
+    module = models.CharField(max_length=250)  # Modulo
+
+    class Meta:
+        db_table = 'modules'  # Define o nome personalizado da tabela na base de dados
+
+    def __str__(self):
+        return f"{self.codModule} - {self.module}"
+
+class Countries(models.Model):
+    # Atributos da tabela
+    country = models.CharField(max_length=200)  # País
+    cod = models.CharField(max_length=2)  # Cod do País
+    indicative = models.CharField(max_length=10)  # Indicativo do País
+    active = models.PositiveSmallIntegerField(choices=[(0, 'Inactive'), (1, 'Active')], default=1)  # Activo ou não
+
+    class Meta:
+        db_table = 'countries'  # Define o nome personalizado da tabela na base de dados
+
+    def __str__(self):
+        return f"{self.country} ({self.cod})"    
