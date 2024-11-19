@@ -1,6 +1,12 @@
 from django.db import models
 
 # Modelos
+class Size(models.Model):
+    # Atributos da tabela
+    active = models.PositiveSmallIntegerField(choices=[(0, 'Inactive'), (1, 'Active')], default=1)  # Activo ou não
+    size = models.CharField(max_length=50) # Tamanho 
+    class Meta:
+        db_table = 'size'
 
 class Products(models.Model):
     # Atributos da tabela
@@ -26,6 +32,38 @@ class Products(models.Model):
     def __str__(self):
         return self.name
 
+class ProductSize(models.Model):
+    # Chave estrageira do modelo Products
+    product = models.OneToOneField(
+        Products,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        db_column='product_id'  # Define o nome da coluna no banco de dados
+        )
+    # Chave estrageira do modelo Size
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    # Atributos da tabela
+    creation_date = models.DateTimeField(auto_now_add=True) # Data de criação do produto
+    update_date = models.DateTimeField(auto_now=True) # Data de atualização do produto
+
+    class Meta:
+        db_table = 'product_size'  # Definindo o nome personalizado da tabela
+
+class StockProduct(models.Model):
+    # Chave estrangeira do modelo Products
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks') # Products id
+    
+    # Atributos da tabela
+    quantity = models.IntegerField()  # Quantidade em stock
+    entry_date = models.DateTimeField(auto_now_add=True)  # Data de entrada em stock
+    update_date = models.DateTimeField(auto_now=True)  # Data da última atualização do stock
+
+    class Meta:
+        db_table = 'stock_product'  # Definindo o nome personalizado da tabela
+
+    def __str__(self):
+        return f"Stock for {self.product.name} - Quantity: {self.quantity}" 
+
 class User(models.Model):
     # Atributos da tabela
     name = models.CharField(max_length=100) # Nome do utilizador
@@ -40,21 +78,6 @@ class User(models.Model):
 
     class Meta:
         db_table = 'users'
-
-class StockProduct(models.Model):
-    # Chave estrangeira para o modelo Products
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks') # Products id
-    
-    # Atributos da tabela
-    quantity = models.IntegerField()  # Quantidade em stock
-    entry_date = models.DateTimeField(auto_now_add=True)  # Data de entrada em stock
-    update_date = models.DateTimeField(auto_now=True)  # Data da última atualização do stock
-
-    class Meta:
-        db_table = 'stock_product'  # Definindo o nome personalizado da tabela
-
-    def __str__(self):
-        return f"Stock for {self.product.name} - Quantity: {self.quantity}" 
 
 class Modules(models.Model):
     # Atributos da tabela
@@ -79,4 +102,56 @@ class Countries(models.Model):
         db_table = 'countries'  # Define o nome personalizado da tabela na base de dados
 
     def __str__(self):
-        return f"{self.country} ({self.cod})"    
+        return f"{self.country} ({self.cod})"   
+
+class Administrator(models.Model):
+    # Atributos da tabela
+    name = models.CharField(max_length=50)  # Nome do Administrator
+    email = models.EmailField(unique=True)  # Email do Administrator
+    password = models.CharField(max_length=128)  # Password do Administrator
+    creation_date = models.DateTimeField(auto_now_add=True) # Data de criação da conta do Administrator
+    update_date = models.DateTimeField(auto_now=True) # Data de atualização da conta do Administrator
+    active = models.PositiveSmallIntegerField(choices=[(0, 'Inactive'), (1, 'Active')], default=1)  # Activo ou não
+
+    class Meta:
+        db_table = 'administrator'  # Define o nome personalizado da tabela na base de dados
+
+    def __str__(self):  
+        return self.name
+    
+class AdministratorLogs(models.Model):
+    # Chave estrangeira para o modelo Administrator
+    administrator = models.OneToOneField(
+        Administrator,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        db_column='administrator_id'  # Define o nome da coluna no banco de dados
+        ) 
+    # Atributos da tabela
+    datalog = models.DateTimeField(auto_now_add=True) # Data de criação da conta do Administrator
+    logfile = models.TextField(null=True, blank=True) # logfile
+
+    class Meta:
+        db_table = 'administrator_logs'  # Define o nome personalizado da tabela na base de dados
+
+class AdministratorModules(models.Model):
+    # Chave estrangeira para o id do modelo Administrator
+    administrator = models.OneToOneField(
+        Administrator,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        db_column='administrator_id'  # Define o nome da coluna no banco de dados
+        )
+    # Chave estrangeira para o modelo Modules
+    module = models.ForeignKey(Modules, on_delete=models.CASCADE)
+    # Atributos da tabela
+    pView = models.PositiveSmallIntegerField(null=True,)
+    pInsert = models.PositiveSmallIntegerField(null=True,)
+    pUpdate = models.PositiveSmallIntegerField(null=True,)
+    pDelete = models.PositiveSmallIntegerField(null=True,)
+    creation_date = models.DateTimeField(auto_now_add=True) # Data de criação 
+    update_date = models.DateTimeField(auto_now=True) # Data de atualização
+
+    class Meta:
+        db_table = 'administrator_modules'  # Define o nome personalizado da tabela na base de dados
+
