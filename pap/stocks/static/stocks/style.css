@@ -1,0 +1,124 @@
+/* Background geral */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centralizar o card */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Para cobrir toda a altura */
+    margin: 0 auto;
+    padding: 10px; /* Adicionar um espaçamento lateral */
+    box-sizing: border-box;
+}
+
+/* Estilo do card */
+.card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 500px;
+    width: 100%; /* Sempre usar 100% para que o tamanho se ajuste */
+    box-sizing: border-box; /* Inclui padding e bordas na largura */
+}
+
+/* Título */
+.card h1 {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Campos do formulário */
+form input[type="text"],
+form input[type="number"],
+form textarea,
+form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Botão de submissão */
+form button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Link voltar */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Hexágono (opcional, decorativo) */
+.hexagon {
+    width: 50px;
+    height: 50px;
+    background-color: #e3f8ff;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    margin: 0 auto 20px;
+}
+
+/* Ajustar altura da caixa de descrição */
+form textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+        max-width: 90%; /* Ocupa 90% da tela menor */
+    }
+
+    .card h1 {
+        font-size: 1.5em; /* Reduzir o título */
+    }
+
+    form input[type="text"],
+    form input[type="number"],
+    form textarea {
+        font-size: 0.9em; /* Reduzir tamanho da fonte em telas menores */
+    }
+
+    form button[type="submit"] {
+        font-size: 0.9em;
+    }
+}
