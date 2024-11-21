@@ -18,12 +18,7 @@ class Administrator(models.Model):
     
 class AdministratorLogs(models.Model):
     # Chave estrangeira para o modelo Administrator
-    administrator = models.OneToOneField(
-        Administrator,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        db_column='administrator_id'  # Define o nome da coluna no banco de dados
-        ) 
+    administrator = models.OneToOneField(Administrator,on_delete=models.CASCADE,primary_key=True,db_column='administrator_id') 
     # Atributos da tabela
     datalog = models.DateTimeField(auto_now_add=True) # Data de criação da conta do Administrator
     logfile = models.TextField(null=True, blank=True) # logfile
@@ -33,12 +28,7 @@ class AdministratorLogs(models.Model):
 
 class AdministratorModules(models.Model):
     # Chave estrangeira para o id do modelo Administrator
-    administrator = models.ForeignKey(
-        Administrator,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        db_column='administrator_id'  # Define o nome da coluna no banco de dados
-        )
+    administrator = models.ForeignKey(Administrator,on_delete=models.CASCADE,primary_key=True,db_column='administrator_id')
     # Chave estrangeira para o modelo Modules
     module = models.ForeignKey(Modules, on_delete=models.CASCADE)
     # Atributos da tabela
