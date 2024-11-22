@@ -17,6 +17,7 @@ class ProductCategory(models.Model):
         db_table = 'product_category'  # Definindo o nome personalizado da tabela
         
 class Products(models.Model):
+    # Chave estrangeira (Trocar para Not Null IMPORTANTE)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE,null=True,db_column='product_category_id')
     # Atributos da tabela
     name = models.CharField(max_length=100)  # Nome do produto
@@ -46,12 +47,7 @@ class Products(models.Model):
 
 class ProductSize(models.Model):
     # Chave estrageira do modelo Products
-    product = models.OneToOneField(
-        Products,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        db_column='product_id'  # Define o nome da coluna no banco de dados
-        )
+    product = models.OneToOneField(Products,on_delete=models.CASCADE,primary_key=True,db_column='product_id' )
     # Chave estrageira do modelo Size
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     # Atributos da tabela

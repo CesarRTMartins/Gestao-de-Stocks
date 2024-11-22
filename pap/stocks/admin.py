@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models.administration import *
 from .models.common import * 
 from .models.products import *
-from .models.users import * 
+from .models.users import *
+from .models.clients import * 
 # Modelos registados
 
 admin.site.register(Products) # Regista o modelo Produto 
