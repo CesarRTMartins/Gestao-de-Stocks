@@ -53,3 +53,13 @@ class ClientAddress(models.Model):
 
     class Meta:
         db_table = 'client_address'  # Definindo o nome personalizado da tabela
+
+class ClientLogs(models.Model):
+    # Chave estrangeira
+    client = models.OneToOneField(Client,on_delete=models.CASCADE,primary_key=True,db_column='client_id') 
+    # Atributos da tabela
+    datalog = models.DateTimeField(auto_now_add=True) # Data de criação 
+    logfile = models.TextField(null=True, blank=True) # logfile
+
+    class Meta:
+        db_table = 'client_logs'  # Define o nome personalizado da tabela na base de dados

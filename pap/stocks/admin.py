@@ -4,6 +4,8 @@ from .models.common import *
 from .models.products import *
 from .models.users import *
 from .models.clients import * 
+from .models.clients import *
+from .models.order import *
 # Modelos registados
 
 admin.site.register(Products) # Regista o modelo Produto 
