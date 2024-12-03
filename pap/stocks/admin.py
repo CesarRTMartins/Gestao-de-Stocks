@@ -5,7 +5,8 @@ from .models.products import *
 from .models.users import *
 from .models.clients import * 
 from .models.clients import *
-from .models.order import *
+from .models.orders import *
+from .models.suppliers import *
 # Modelos registados
 
 admin.site.register(Products) # Regista o modelo Produto 
