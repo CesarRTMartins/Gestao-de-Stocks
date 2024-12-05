@@ -15,6 +15,9 @@ class ProductCategory(models.Model):
 
     class Meta:
         db_table = 'product_category'  # Definindo o nome personalizado da tabela
+
+    def __str__(self):
+        return self.name  # Retorna o nome da categoria como string
         
 class Products(models.Model):
     # Chave estrangeira (Trocar para Not Null IMPORTANTE)

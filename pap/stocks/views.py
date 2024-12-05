@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Products # Importa o modelo que você criou para itens no estoque
+from .models import Products, ProductCategory # Importa o modelo que você criou para itens no estoque
 from django.http import HttpResponse
 from .forms import ProductForm
+from .forms import ProductCategoryForm
 # Create your views here.
 
 def home(request):
@@ -20,3 +21,17 @@ def add_product(request):
     else:
         form = ProductForm()
     return render(request, 'stocks/add_product.html', {'form': form})
+
+def add_category(request):
+    if request.method == 'POST':
+        form = ProductCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('List_Categories')  # Substitua por sua URL de lista de categorias
+    else:
+        form = ProductCategoryForm()
+    return render(request, 'stocks/add_category.html', {'form': form})
+
+def list_categories(request):
+    categories = ProductCategory.objects.all()
+    return render(request, 'stocks/Categories.html', {'categories': categories})

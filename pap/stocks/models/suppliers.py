@@ -54,4 +54,13 @@ class SupplierAdress(models.Model):
 
     class Meta:
         db_table = 'supplier_address'  # Definindo o nome personalizado da tabela
-    
+
+class SupplierLogs(models.Model):
+    # Chave estrangeira para o modelo Administrator
+    supplier = models.OneToOneField(Supplier,on_delete=models.CASCADE,primary_key=True,db_column='supplier_id') 
+    # Atributos da tabela
+    datalog = models.DateTimeField(auto_now_add=True) # Data de criação da conta do Supplier
+    logfile = models.TextField(null=True, blank=True) # logfile
+
+    class Meta:
+        db_table = 'supplier_logs'  # Define o nome personalizado da tabela na base de dados

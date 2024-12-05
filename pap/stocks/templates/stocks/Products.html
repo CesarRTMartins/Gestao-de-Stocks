@@ -10,6 +10,7 @@
         {% for product in products %}
             <li>
                 <strong>{{ product.name }} (Price: {{ product.price }})</strong>
+                Category: {{ product.category.name }}  
                 <ul>
                     {% for stock in product.stocks.all %}  <!-- Acessando os estoques -->
                         <li>Quantity: {{ stock.quantity }} - Entry Date: {{ stock.entry_date }}</li>
