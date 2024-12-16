@@ -122,3 +122,34 @@ form textarea {
         font-size: 0.9em;
     }
 }
+/* styles.css */
+/* styles.css */
+.sidebar {
+    width: 250px;
+    height: 100vh; /* Altura total da viewport */
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* Para scroll, caso necessário */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+}
+
+.sidebar a {
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    font-size: 18px; /* Tamanho do texto ajustado */
+}
+
+.sidebar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.main-content {
+    margin-left: 250px; /* Espaço para a sidebar */
+}
+
