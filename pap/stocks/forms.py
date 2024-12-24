@@ -6,7 +6,7 @@ from .models import ProductCategory
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Products
-        fields = ['name', 'description','reference', 'price','weight','img','quantity','category',]  # Inclua os campos que deseja no formulário
+        fields = ['category','reference','name', 'description', 'price','weight','img','quantity',]  # Inclua os campos que deseja no formulário
 
 class ProductCategoryForm(forms.ModelForm):
     class Meta:

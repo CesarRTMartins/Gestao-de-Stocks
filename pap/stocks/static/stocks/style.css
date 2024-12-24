@@ -26,6 +26,7 @@ body {
     max-width: 500px;
     width: 100%; /* Sempre usar 100% para que o tamanho se ajuste */
     box-sizing: border-box; /* Inclui padding e bordas na largura */
+    /*z-index: 500;*/
 }
 
 /* Título */
@@ -153,3 +154,98 @@ form textarea {
     margin-left: 250px; /* Espaço para a sidebar */
 }
 
+:root {
+    --primary-color: #3498db;
+    --bg-color: #f4f6f7;
+    --text-color: #2c3e50;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+}
+
+.modern-navbar {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modern-navbar .navbar-brand {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.modern-navbar .nav-link {
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.modern-navbar .nav-link:hover,
+.modern-navbar .nav-link.active {
+    color: var(--primary-color);
+}
+
+.modern-navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.modern-navbar .nav-link:hover::after,
+.modern-navbar .nav-link.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+#navbarMenu{ z-index:1001; }
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 55;
+}
+
+.features-dropdown .dropdown-menu {
+    min-width: 250px;
+}
+
+.features-dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+.features-dropdown .dropdown-item i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+/* Centralizar itens de navegação */
+.navbar-nav.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.features-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.containerSeccao { display:block; margin-top: 30px; }

@@ -7,3 +7,4 @@ urlpatterns = [
     path('AddCategory/', views.add_category, name='Add_Category'),
     path('AddProduct/', views.add_product, name='Add_Product'),  # URL para adicionar produtos
 ]
+    
