@@ -6,5 +6,6 @@ urlpatterns = [
     path('ListCategories/', views.list_categories, name='List_Categories'),  # Exemplo para a lista
     path('AddCategory/', views.add_category, name='Add_Category'),
     path('AddProduct/', views.add_product, name='Add_Product'),  # URL para adicionar produtos
+    path('DeleteProduct/', views.delete_product, name='Delete_Product'),
 ]
     

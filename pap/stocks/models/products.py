@@ -49,7 +49,7 @@ class Products(models.Model):
         return self.name
 
 class ProductSize(models.Model):
-    # Chave estrageira do modelo Products
+    # Chave estrageira do modelo Products  
     product = models.OneToOneField(Products,on_delete=models.CASCADE,primary_key=True,db_column='product_id' )
     # Chave estrageira do modelo Size
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
@@ -65,7 +65,7 @@ class ProductSize(models.Model):
 
 class StockProduct(models.Model):
     # Chave estrangeira do modelo Products
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='stocks') # Products id
+    product = models.ForeignKey(Products, on_delete =models.CASCADE, related_name='stocks') # Products id
     # Atributos da tabela
     quantity = models.IntegerField()  # Quantidade em stock
     entry_date = models.DateTimeField(auto_now_add=True)  # Data de entrada em stock
@@ -75,5 +75,4 @@ class StockProduct(models.Model):
         db_table = 'product_stock'  # Definindo o nome personalizado da tabela
 
     def __str__(self):
-        return f"Stock for {self.product.name} - Quantity: {self.quantity}" 
-
+        return f"Stock for {self.product.name} - Quantity: {self.quantity}"
