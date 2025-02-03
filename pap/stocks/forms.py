@@ -24,3 +24,14 @@ class DeleteProductForm(forms.Form):
         # Atualiza as opções dinamicamente com os produtos disponíveis
         self.fields['id'].choices = [(product.id, product.name) for product in Products.objects.all()]
 
+class DeleteCategoryForm(forms.Form):
+    id = forms.ChoiceField(
+        label="Select Category to Delete",
+        choices=[],
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(DeleteCategoryForm, self).__init__(*args, **kwargs)
+        # Atualiza as opções dinamicamente com as categorias disponíveis
+        self.fields['id'].choices = [(category.id, category.name) for category in ProductCategory.objects.all()]
+

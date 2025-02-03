@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'pap.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pap_db',  # Nome da tua base de dados
-        'USER': 'root',  # O teu utilizador MySQL (ou o nome que usas)
-        'PASSWORD': 'root',  # A senha do MySQL
+        'NAME': 'pap',  # Nome da tua base de dados
+        'USER': 'luis',  # O teu utilizador MySQL (ou o nome que usas)
+        'PASSWORD': 'luis',  # A senha do MySQL
         'HOST': 'localhost',  # Endereço do servidor MySQL
         'PORT': '3306',  # Porta padrão do MySQL
     }
@@ -129,6 +129,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Configurações de autenticação
+LOGIN_REDIRECT_URL = '/stocks/'  # Página inicial após login
+LOGOUT_REDIRECT_URL = '/login/'  # Página inicial após logout
 
 
 

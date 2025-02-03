@@ -249,3 +249,23 @@ body {
 }
 
 .containerSeccao { display:block; margin-top: 30px; }
+
+.edit-icon {
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s;
+}
+
+.edit-icon:hover {
+    background: #0056b3;
+
+}
