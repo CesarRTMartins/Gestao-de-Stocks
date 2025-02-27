@@ -19,6 +19,7 @@ from django.urls import path, include
 from stocks import views  # Importa as views do app stocks
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
+from stocks.views import register  # Importa as views do app stocks
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
     # Redireciona a raiz para o login
     path('', lambda request: redirect('login/'), name='home'),
     path('login/', auth_views.LoginView.as_view(template_name='stocks/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout')
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path("register/", register, name="register"),
 ]

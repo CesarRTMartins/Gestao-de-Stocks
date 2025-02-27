@@ -94,7 +94,7 @@
 
     <nav class="navbar modern-navbar navbar-expand-lg position-relative">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/stocks/">
                 <i class="ri-line-chart-line me-2"></i>Unshackled   
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
@@ -132,6 +132,11 @@
                 <h6>Invalid username or password</h6>
             </div>
         {% endif %}
+        
+        <div class="container text-center mt-3">
+            <p>Não tem uma conta? <a href="{% url 'register' %}" class="btn btn-outline-primary">Registar-se</a></p>
+        </div>
+
     </div>
 </div>
 </body>
