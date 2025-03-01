@@ -3,6 +3,7 @@ from django.utils import timezone
 from .models import Products, ProductCategory, StockProduct, StockHistory # Importa o modelo que você criou para itens no estoque
 from django.http import HttpResponse
 from .forms import ProductForm
+from django.db.models import Sum, Case, When, IntegerField, Value,Subquery, OuterRef    
 from .forms import *
 from .forms import ProductCategoryForm
 from django.shortcuts import render, get_object_or_404, redirect
@@ -10,14 +11,79 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import CustomUserCreationForm
+import csv
+from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
     return HttpResponse("Welcome to the Home Page! This is your default view.")
 
 def list_Products(request):
-    products = Products.objects.all()  # Vai buscar todos os produtos á base de dados
-    return render(request, 'stocks/Products.html', {'products': products})
+    products = Products.objects.all()  # Busca todos os produtos
+
+    # Obtém os valores do filtro
+    name_filter = request.GET.get('name', '')
+    category_filter = request.GET.get('category', '')
+    min_quantity = request.GET.get('min_quantity', '')
+    max_quantity = request.GET.get('max_quantity', '')
+
+    # Verifica se o botão de limpar foi pressionado
+    if 'clear_filters' in request.GET:
+        name_filter = ''
+        category_filter = ''
+        min_quantity = ''
+        max_quantity = ''
+
+    # Aplica os filtros conforme preenchido
+    if name_filter:
+        products = products.filter(name__icontains=name_filter)
+
+    if category_filter:
+        try:
+            category = ProductCategory.objects.get(name=category_filter)
+            products = products.filter(category=category)
+        except ProductCategory.DoesNotExist:
+            products = Products.objects.none()  # Se a categoria não existir, retorna lista vazia
+
+    # Criar um dicionário para armazenar o stock final de cada produto
+    stock_dict = {}
+
+    for product in products:
+        total_stock = StockHistory.objects.filter(product=product).aggregate(
+            total_stock=Sum(
+                Case(
+                    When(change_type='add', then='quantity_changed'),
+                    When(change_type='remove', then=-1 * Value(1) * 'quantity_changed'),
+                    default=0,
+                    output_field=IntegerField()
+                )
+            )
+        )['total_stock'] or 0  # Se for None, assume 0
+
+        stock_dict[product.id] = total_stock  # Associa o ID ao stock correto
+
+    # Filtrar produtos com base no stock calculado
+    try:
+        if min_quantity and max_quantity:
+            min_quantity = int(min_quantity)
+            max_quantity = int(max_quantity)
+            products = [p for p in products if min_quantity <= stock_dict.get(p.id, 0) <= max_quantity]
+        elif min_quantity:
+            min_quantity = int(min_quantity)
+            products = [p for p in products if stock_dict.get(p.id, 0) >= min_quantity]
+        elif max_quantity:
+            max_quantity = int(max_quantity)
+            products = [p for p in products if stock_dict.get(p.id, 0) <= max_quantity]
+    except ValueError:
+        pass  # Se o usuário inserir algo inválido, ignora o filtro
+
+    return render(request, 'stocks/Products.html', {
+        'products': products,
+        'name_filter': name_filter,
+        'category_filter': category_filter,
+        'min_quantity': min_quantity,
+        'max_quantity': max_quantity
+    })
 
 def add_product(request):
     if request.method == 'POST':
@@ -126,16 +192,30 @@ def stock_history(request, product_id):
 
     return render(request, 'stocks/stock_history.html', {'product': product, 'history': history})
 
-
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login/")  # Redireciona para login após registo bem-sucedido
+            messages.success(request, "Conta criada com sucesso! Agora pode fazer login.")
+            return redirect("login")  # Certifica-te de que a URL name está correta
+        else:
+            messages.error(request, "Ocorreu um erro ao criar a conta. Verifique os dados.")
     else:
         form = UserCreationForm()
-    
+
     return render(request, "stocks/register.html", {"form": form})
 
+def export_products_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="products.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Nome', 'Categoria', 'Quantidade', 'Preço'])  # Ajuste os campos conforme seu modelo
+
+    products = Products.objects.all()
+    for product in products:
+        writer.writerow([product.name, product.category, product.reference])  # Ajuste conforme seu modelo
+
+    return response
 

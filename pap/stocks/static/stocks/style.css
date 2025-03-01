@@ -1,4 +1,5 @@
 /* Background geral */
+/* Background geral */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -6,27 +7,28 @@ body {
     padding: 0;
 }
 
+
 /* Centralizar o card */
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh; /* Para cobrir toda a altura */
+    min-height: 100vh;
     margin: 0 auto;
-    padding: 10px; /* Adicionar um espaçamento lateral */
+    padding: 10px;
     box-sizing: border-box;
 }
 
+/* Estilo do card */
 /* Estilo do card */
 .card {
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 500px;
-    width: 100%; /* Sempre usar 100% para que o tamanho se ajuste */
-    box-sizing: border-box; /* Inclui padding e bordas na largura */
-    /*z-index: 500;*/
+    padding: 20px;
+    max-width: 450px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Título */
@@ -270,3 +272,68 @@ body {
 
 }
 
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajusta conforme necessário */
+}
+
+/* Formulário de Filtro */
+.filter-form {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filter-form h6 {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.filter-form input {
+    font-size: 0.9em;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.filter-form button {
+    font-size: 0.9em;
+}
+
+/* Ajuste para os cards */
+.stock-list {
+    list-style: none;
+    padding: 0;
+}
+
+.stock-list li {
+    font-size: 0.9em;
+}
+
+/* Ajustes para a responsividade */
+@media (max-width: 768px) {
+    .card {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .filter-form {
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .filter-form input {
+        font-size: 0.85em;
+        padding: 6px;
+    }
+
+    .filter-form button {
+        font-size: 0.85em;
+    }
+}

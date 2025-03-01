@@ -17,7 +17,11 @@ class Countries(models.Model):
     country = models.CharField(max_length=200)  # País
     cod = models.CharField(max_length=2)  # Cod do País
     indicative = models.CharField(max_length=10)  # Indicativo do País
-    active = models.PositiveSmallIntegerField(choices=[(0, 'Inactive'), (1, 'Active')], default=1)  # Activo ou não
+    active = models.PositiveSmallIntegerField(
+        choices=[(0, 'Inactive'), 
+        (1, 'Active')], 
+        default=1
+    )  # Activo ou não
 
     class Meta:
         db_table = 'countries'  # Define o nome personalizado da tabela na base de dados

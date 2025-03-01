@@ -23,7 +23,12 @@ class ProductCategory(models.Model):
         
 class Products(models.Model):
     # Chave estrangeira (Trocar para Not Null IMPORTANTE)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE,null=True,db_column='product_category_id')
+    category = models.ForeignKey(
+        ProductCategory, 
+        on_delete=models.CASCADE,
+        null=True,
+        db_column='product_category_id'
+    )
     # Atributos da tabela
     name = models.CharField(max_length=100)  # Nome do produto
     reference = models.CharField(max_length=50,null=True,blank=True) # Referência do Produto
@@ -41,7 +46,11 @@ class Products(models.Model):
 
 class ProductSize(models.Model):
     # Chave estrageira do modelo Products  
-    product = models.OneToOneField(Products,on_delete=models.CASCADE,primary_key=True,db_column='product_id' )
+    product = models.OneToOneField(
+        Products,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        db_column='product_id' )
     # Chave estrageira do modelo Size
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     # Atributos da tabela
@@ -56,7 +65,11 @@ class ProductSize(models.Model):
 
 class StockProduct(models.Model):
     # Chave estrangeira do modelo Products
-    product = models.ForeignKey(Products, on_delete =models.CASCADE, related_name='stocks') # Products id
+    product = models.ForeignKey(
+        Products, # Products id
+        on_delete =models.CASCADE, 
+        related_name='stocks'
+    ) 
     # Atributos da tabela
     quantity = models.IntegerField(default=0)  # Quantidade em stock
     price = models.DecimalField(max_digits=10, decimal_places=2,null=True)  # Preço do produto

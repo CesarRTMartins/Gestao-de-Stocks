@@ -8,7 +8,11 @@ class Administrator(models.Model):
     password = models.CharField(max_length=128)  # Password do Administrator
     creation_date = models.DateTimeField(auto_now_add=True) # Data de criação da conta do Administrator
     update_date = models.DateTimeField(auto_now=True) # Data de atualização da conta do Administrator
-    active = models.PositiveSmallIntegerField(choices=[(0, 'Inactive'), (1, 'Active')], default=1)  # Activo ou não
+    active = models.PositiveSmallIntegerField(
+        choices=[(0, 'Inactive'), 
+                (1, 'Active')], 
+                default=1 # Activo ou não)
+        )
 
     class Meta:
         db_table = 'administrator'  # Define o nome personalizado da tabela na base de dados

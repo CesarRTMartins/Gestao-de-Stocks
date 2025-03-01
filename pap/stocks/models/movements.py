@@ -4,7 +4,6 @@ from .products import *
 
 class Movements(models.Model):
 
-
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name="movements")
     stock = models.ForeignKey(StockProduct, on_delete=models.CASCADE, related_name="movements", null=True, blank=True)
     quantity = models.IntegerField()

@@ -1,159 +1,186 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Optional: Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>Add Product</title>
-
-    <link rel="stylesheet" href="{% static 'stocks/style.css' %}">
-    {% load static %}
-    <!--<link rel="stylesheet" href="{% static 'stocks/style.css?v=sdfsdf' %}">-->
-    <link rel="stylesheet" id="dynamic-css">
-    <script>
-        document.getElementById("dynamic-css").href = "/static/stocks/style.css?v=" + 
-            new Date().toISOString().replace(/[-:TZ]/g, '').slice(0, 14) + "";
-    </script>
-</head>
-<style>
-    h1 {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #333; /* Cor neutra para combinar com o design */
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        padding: 10px 0;
-        position: relative;
-    }
-    
-    h1::after {
-        content: "";
-        display: block;
-        width: 60px;
-        height: 4px;
-        background-color: #007bff; /* Azul para combinar com o logo */
-        margin: 8px auto 0;
-        border-radius: 2px;
-    }
-    .container.mt-0 {
-        margin-top: -90px !important;
-    }
-    
-</style>
-
-<body>
-    <nav class="navbar modern-navbar navbar-expand-lg position-relative">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/stocks/">
-                <i class="ri-line-chart-line me-2"></i>Unshackled
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-                <i class="ri-menu-line"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav nav-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">
-                            <i class="ri-home-2-line me-1"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown features-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ri-function-line me-1"></i> Features
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="featuresDropdown">
-                            <li>
-                                <a class="dropdown-item" href="AddProduct">
-                                    <i class="ri-bar-chart-2-line"></i> Add Product
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="DeleteProduct">
-                                    <i class="ri-file-chart-line"></i> Delete Product
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="AddCategory">
-                                    <i class="ri-line-chart-line"></i> Add Category
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="DeleteCategory">
-                                    <i class="ri-link-m"></i> Delete Category
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/stocks/">
-                            <i class="ri-archive-line me-1"></i> Inventory
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <img src="https://ui-avatars.com/api/?name=User+Name&background=0D8ABC&color=fff" alt="Avatar" class="user-avatar">
-                            User
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#profile"><i class="ri-user-line me-2"></i>profile</a></li>
-                            <li><a class="dropdown-item" href="#settings"><i class="ri-settings-3-line me-2"></i>Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#logout"><i class="ri-logout-box-r-line me-2"></i>Log Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Header -->
-    <div class="containerSeccao">
+    <!DOCTYPE html>
+    <html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
         
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center mb-1">Stocks</h1>
-            </div>
-        </div>
-    </div>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Optional: Bootstrap Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <title>Add Product</title>
 
-    <div class="container my-4">
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <a href="{% url 'stock_history' product.id %}" class="text-decoration-none text-dark">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body position-relative">
-                            <h5 class="card-title fw-bold">{{ product.name }}</h5>
-                            <p class="card-text"><strong>Category:</strong> {{ product.category.name }}</p>
-                            <h6 class="mt-3">Stocks:</h6>
-                            <ul class="stock-list p-0">
-                                {% for stock in product.stocks.all %}
-                                <li>📦 Quantity: {{ stock.quantity }} | 🗓 Entry: {{ stock.entry_date }}</li>
-                                {% empty %}
-                                <li class="text-muted">No stock available</li>
-                                {% endfor %}
-                            </ul>
-                            <!-- Link para página de movimentação -->
-                            <a href="{% url 'manage_stock' product.id %}" class="btn btn-primary position-absolute bottom-0 end-0 mb-2">Manage Stock</a>
-                        </div>
-                    </div>
+        <link rel="stylesheet" href="{% static 'stocks/style.css' %}">
+        {% load static %}
+        <!--<link rel="stylesheet" href="{% static 'stocks/style.css?v=sdfsdf' %}">-->
+        <link rel="stylesheet" id="dynamic-css">
+        <script>
+            document.getElementById("dynamic-css").href = "/static/stocks/style.css?v=" + 
+                new Date().toISOString().replace(/[-:TZ]/g, '').slice(0, 14) + "";
+        </script>
+    </head>
+    <style>
+            /* Ajusta o tamanho do formulário para ocupar menos espaço */
+            .filter-form {
+                width: 220px;
+                padding: 10px;
+                font-size: 14px;
+            }
+        
+            .filter-form input {
+                font-size: 12px;
+                padding: 5px;
+            }
+        
+            .filter-form button {
+                font-size: 12px;
+                padding: 5px;
+            }
+        
+            /* Garante que os cards não fiquem sobrepostos */
+            .container.my-4 {
+                margin-top: 120px;
+            }
+    </style>
+
+    <body>
+        <nav class="navbar modern-navbar navbar-expand-lg position-relative">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/stocks/">
+                    <i class="ri-line-chart-line me-2"></i>Unshackled
                 </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav nav-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">
+                                <i class="ri-home-2-line me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown features-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ri-function-line me-1"></i> Features
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="featuresDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="AddProduct">
+                                        <i class="ri-bar-chart-2-line"></i> Add Product
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="DeleteProduct">
+                                        <i class="ri-file-chart-line"></i> Delete Product
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="AddCategory">
+                                        <i class="ri-line-chart-line"></i> Add Category
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="DeleteCategory">
+                                        <i class="ri-link-m"></i> Delete Category
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/stocks/">
+                                <i class="ri-archive-line me-1"></i> Inventory
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <img src="https://ui-avatars.com/api/?name=User+Name&background=0D8ABC&color=fff" alt="Avatar" class="user-avatar">
+                                User
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#profile"><i class="ri-user-line me-2"></i>profile</a></li>
+                                <li><a class="dropdown-item" href="#settings"><i class="ri-settings-3-line me-2"></i>Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#logout"><i class="ri-logout-box-r-line me-2"></i>Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            {% endfor %}
-        </div>
-    </div>
-    
+        </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+        <!-- Header -->
+        <div class="containerSeccao">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center mb-1">Stocks</h1>
+                    <div class="center-button">
+                        <a href="{% url 'export_csv' %}" class="btn btn-success">Export to CSV</a>
+                    </div>
+                    
+
+                    <form method="GET" action="{% url 'list_Products' %}" class="p-2 bg-white rounded shadow-sm filter-form" style="width:100%; max-width:800px !important; margin: 0 auto;margin-top:20px;">
+                        <div class="row" style="">
+                            <h6 class="mb-2">Filter Products</h6>
+                            <div class="col-md-4">
+                                <label for="min_quantity">Name:</label>
+                                <input type="text" name="name" class="form-control form-control-sm mb-2" placeholder="Name">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="min_quantity">Categorie:</label>
+                                <input type="text" name="category" class="form-control form-control-sm mb-2" placeholder="Categorie">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="min_quantity">Minimum Stock:</label>
+                                <input type="number" name="min_quantity" id="min_quantity" value="{{ min_quantity }}" class="form-control form-control-sm mb-2">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="max_quantity">Maximum Stock:</label>
+                                <input type="number" name="max_quantity" id="max_quantity" value="{{ max_quantity }}" class="form-control form-control-sm mb-2">
+                            </div>
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-primary btn-sm me-2 w-50">Filter</button>
+                                <button type="submit" name="clear_filters" value="1" class="btn btn-secondary btn-sm w-50">Clear</button>
+                            </div>
+                        
+                        </div>
+                    </form>
+
+
+        <div class="container my-4">
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-4 mb-4">
+        
+                    <a href="{% url 'stock_history' product.id %}" class="text-decoration-none text-dark">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body position-relative">
+                                <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                                <p class="card-text"><strong>Category:</strong> {{ product.category.name }}</p>
+                                <h6 class="mt-3">Stocks:</h6>
+                                
+                                <ul class="stock-list p-0">
+                                    {% for stock in product.stocks.all %}
+                                    <li>📦 Quantity: {{ stock.quantity }} | 🗓 Entry: {{ stock.entry_date }}</li>
+                                    {% empty %}
+                                    <li class="text-muted">No stock available</li>
+                                    {% endfor %}
+                                </ul>
+                                <!-- Link para página de movimentação -->
+                                <a href="{% url 'manage_stock' product.id %}" class="btn btn-primary position-absolute bottom-0 end-0 mb-2">Manage Stock</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    </body>
+    </html>
